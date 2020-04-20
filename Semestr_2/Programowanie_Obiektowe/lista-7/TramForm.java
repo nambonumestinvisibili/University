@@ -24,7 +24,7 @@ public class TramForm extends Form {
 
         lineField = new JTextField("0");
         capacityField = new JTextField("0");
-        colourField = new JTextField("null");
+        colourField = new JTextField("none");
 
         ArrayList<JLabel> secondListOfLabels = new ArrayList<>();
         secondListOfLabels.add(lineLabel);

@@ -68,6 +68,9 @@ public class Calculator {
                     result = price*burning*km;
                     res.setText("Price: " + result + " PLN");
                 }
+                else {
+                    res.setText("Not a car");
+                }
 
 
 

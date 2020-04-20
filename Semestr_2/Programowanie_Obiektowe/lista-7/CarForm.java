@@ -19,7 +19,7 @@ public class CarForm extends Form implements ActionListener {
     CarForm(VehiclesCollection v){
         collection = v;
 
-        burningLabel = new JLabel("Burning:");
+        burningLabel = new JLabel("Burning: [1l/100km]");
         fuelLabel = new JLabel("Type of fuel:");
         averageVelocityLabel = new JLabel("Average velocity: ");
 
@@ -76,13 +76,11 @@ public class CarForm extends Form implements ActionListener {
         int ml = Integer.parseInt(mlg);
         float br = Float.parseFloat(brn);
         int avgv = Integer.parseInt(avg);
-        //String fuel3 = "ON";
 
         Car newcar = new Car(brd, ml, hib, br, ful, avgv);
 
         collection.add(newcar);
         mainFrame.dispose();
-        //collection.print();
 
     }
 
