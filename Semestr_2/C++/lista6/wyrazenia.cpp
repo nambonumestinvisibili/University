@@ -3,22 +3,33 @@
 #include <algorithm>
 
 vector<std::pair<std::string, double>> zmienna::wartosciowanie;
-
+//-----------------------------------------------------------
 
 void zmienna::dodaj(string nazwa, double wartosc){
 
-    vector<string> aux;
-    for (auto elem: zmienna::wartosciowanie) aux.push_back(elem.first);
-
-    if (count(aux.begin(), aux.end(), nazwa)) throw invalid_argument("Zmienna juz istnieje");
-
+    for (auto& var : wartosciowanie)
+            {
+                if (var.first == nazwa)
+                    throw invalid_argument("Zmienna juz istnieje");
+            }
     zmienna::wartosciowanie.push_back(pair<string, double>(nazwa, wartosc));
 }
 
+void zmienna::zmien_wartosc(string nazwa, double val){
+
+    for (auto& var : wartosciowanie){
+        if (var.first == nazwa){
+            var.second = val;
+            return;
+        }
+    }
+    throw new invalid_argument("Nie ma takiej zmiennej");
+
+}
 
 void zmienna::wydrukuj(){
 
-    for (auto elem : zmienna::wartosciowanie){
+    for (auto &elem : zmienna::wartosciowanie){
         cout << elem.first << " = " << elem.second << endl;
     }
 
@@ -37,13 +48,43 @@ double zmienna::oblicz(){
 }
 
 
-//----------------------------------------------------------------------
-//Operatory 1arg
-//----------------------------------------------------------------------
+//-----------------------------------------------------------
+
+string operator2arg::pom_opis(string znak){
+    string result = "";
+    //cout << this->priorytet << endl;
+    if (sub->get_priorytet() <= this->get_priorytet()){
+        result += ("(" + sub->opis() + ")");
+    }
+    else result += sub->opis();
+
+    result += " " + znak + " ";
+
+    if (sub2->get_priorytet() <= this->get_priorytet()){
+        result += ("(" + sub2->opis() + ")");
+    }
+    else result += sub2->opis();
 
 
+    return result;
+}
 
+double dzielenie::oblicz() {
+    if (sub2->oblicz() == 0) throw new invalid_argument("Drugie wyrazenie oblicza sie do 0");
+    return sub->oblicz() / sub2->oblicz();};
 
+double modulo::oblicz(){
+    if (sub2->oblicz() == 0) throw new invalid_argument("Dzielnik oblicza siê do 0");
+    return fmod(sub->oblicz(), sub2->oblicz());
 
+}
 
+string przeciw::opis(){
+    if (sub->get_priorytet() > 10) return "-" + sub->opis();
+    return "-(" + this->sub->opis() + ")";
+}
 
+string odwrot::opis(){
+    if (sub->get_priorytet() > 10) return "1/" + sub->opis();
+    return "1/(" + this->sub->opis() + ")";
+}
